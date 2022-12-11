@@ -1,4 +1,5 @@
 package models;
+
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,48 +32,48 @@ public class Paciente {
         }
 
         if (Sexo == 'm') {
-            this.sexo = sexo.MASCULINO;
+            this.sexo = models.Sexo.MASCULINO;
         } else if (Sexo == 'f') {
-            this.sexo = sexo.FEMININO;
+            this.sexo = models.Sexo.FEMININO;
         } else {
-            this.sexo = sexo.OUTRO;
+            this.sexo = models.Sexo.OUTRO;
         }
 
         endereco.setEndereco(logradouro, cidade, uf, numero);
     }
 
     public void setAtualizaPaciente(String nome, String nomeMae, String dtnasc, char Sexo, String logradouro,
-    String cidade, String uf, int numero) {
+            String cidade, String uf, int numero) {
 
-this.nome = nome;
-this.nomeMae = nomeMae;
+        this.nome = nome;
+        this.nomeMae = nomeMae;
 
-SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-try {
-    this.dtnasc = sdf.parse(dtnasc);
-} catch (ParseException e) {
+        try {
+            this.dtnasc = sdf.parse(dtnasc);
+        } catch (ParseException e) {
 
-}
+        }
 
-if (Sexo == 'm') {
-    this.sexo = sexo.MASCULINO;
-} else if (Sexo == 'f') {
-    this.sexo = sexo.FEMININO;
-} else {
-    this.sexo = sexo.OUTRO;
-}
+        if (Sexo == 'm') {
+            this.sexo = models.Sexo.MASCULINO;
+        } else if (Sexo == 'f') {
+            this.sexo = models.Sexo.FEMININO;
+        } else {
+            this.sexo = models.Sexo.OUTRO;
+        }
 
-endereco.setEndereco(logradouro, cidade, uf, numero);
-}
+        endereco.setEndereco(logradouro, cidade, uf, numero);
+    }
 
     public String getNome() {
         return nome;
     }
 
     public String getDtNasc() {
-       
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); 
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String datanasc = sdf.format(dtnasc);
         return datanasc;
     }

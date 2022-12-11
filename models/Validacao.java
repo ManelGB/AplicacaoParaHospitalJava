@@ -1,10 +1,13 @@
 package models;
+
+import java.util.List;
+
 public class Validacao {
 
-    public boolean validaCPF(String CPF, Paciente[] paciente) {
+    public boolean validaCPF(String CPF, List<Paciente> paciente) {
         if ((CPF != null) && CPF.length() == 11) {
-            for (int i = 0; i < paciente.length; i++) {
-                if (CPF.equals(paciente[i].getCPF())) {
+            for (int i = 0; i < paciente.size(); i++) {
+                if (CPF.equals(paciente.get(i).getCPF())) {
                     return true;
                 }
             }

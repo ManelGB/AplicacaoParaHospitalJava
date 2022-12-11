@@ -1,3 +1,5 @@
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 import models.Anamnese;
 import models.Paciente;
@@ -12,7 +14,8 @@ public class Sistema {
 
     Validacao validacao = new Validacao();
 
-    Paciente pacientes[] = new Paciente[30];
+    List <Paciente> pacientes = new ArrayList<>();
+
     Anamnese anamneses[] = new Anamnese[30];
     Usuario usuarios[] = new Usuario[30];
 
@@ -73,15 +76,14 @@ public class Sistema {
 
         for (int i = 0; i < 30; i++) {
             usuarios[i] = new Usuario();
-            pacientes[i] = new Paciente();
             anamneses[i] = new Anamnese();
         }
 
-        pacientes[0].setPaciente("Emanuel Gon", "Josefina da Silva", "52264982098", "20/02/2004", 'm',
+        pacientes.add(0,).setPaciente("Emanuel Gon", "Josefina da Silva", "52264982098", "20/02/2004", 'm',
                 "Rua dos Bobo", "Ipatinga", "MG", 123);
-        pacientes[1].setPaciente("TATÁ Bacanudo", "Elis Condoisélle", "12345678912", "01/02/2004", 'o',
+        pacientes.get(1).setPaciente("TATÁ Bacanudo", "Elis Condoisélle", "12345678912", "01/02/2004", 'o',
                 "Avenida Brasil", "Timóteo", "MG", 159);
-        pacientes[2].setPaciente("Lidiane Morais", "Rosalina Condoisélle", "98745632198", "01/02/1960", 'f',
+        pacientes.get(2).setPaciente("Lidiane Morais", "Rosalina Condoisélle", "98745632198", "01/02/1960", 'f',
                 "Avenida Macapá", "Santos", "SP", 147);
 
         usuarios[0].setUsuario("Emanuel", "Emanuel", "123456789", 'a');
@@ -89,11 +91,11 @@ public class Sistema {
         usuarios[2].setUsuario("Lidiane Morais", "Rosalina Condoisélle", "123qwe", 'a');
 
         anamneses[0].setAnamnese("Emanuel", "dor de carregar o peso de ser um tremendo feioso", "Dor de cabeça",
-                pacientes[0]);
+                pacientes.get(0));
         anamneses[1].setAnamnese("TATÁ", "dor de carregar o peso de ser um tremendo gostoso", "Dor no olho",
-                pacientes[1]);
+                pacientes.get(1));
         anamneses[2].setAnamnese("Lidiane", "Programadora", "Dor lombar",
-                pacientes[2]);
+                pacientes.get(2));
     }
 
     public Tipo tipoUsuario(String login, String senha) {
@@ -259,9 +261,9 @@ public class Sistema {
         String CPF = sc.next();
         System.out.println();
 
-        for (int i = 0; i < pacientes.length; i++) {
-            if (pacientes[i] != null && pacientes[i].getCPF() != null) {
-                if (pacientes[i].getCPF().equals(CPF)) {
+        for (int i = 0; i < pacientes.size(); i++) {
+            if (pacientes.get(i) != null && pacientes.get(i).getCPF() != null) {
+                if (pacientes.get(i).getCPF().equals(CPF)) {
                     System.out.println("Insira o nome do paciente:");
                     String nome = sc.next();
                     nome += sc.nextLine();
@@ -300,7 +302,7 @@ public class Sistema {
                     int numero = sc.nextInt();
                     System.out.println();
 
-                    pacientes[i].setAtualizaPaciente(nome, nomeMae, datanasc, sexo, logradouro, cidade, uf, numero);
+                    pacientes.get(i).setAtualizaPaciente(nome, nomeMae, datanasc, sexo, logradouro, cidade, uf, numero);
                 }
             }
         }
@@ -344,9 +346,9 @@ public class Sistema {
         validacao.validaCPF(CPF);
         validacao.validaCPF(CPF, pacientes);
         int idExcluir = -1;
-        for (int i = 0; i < pacientes.length; i++) {
-            if (pacientes[i] != null && pacientes[i].getNome() != null) {
-                if (pacientes[i].getCPF().equals(CPF)) {
+        for (int i = 0; i < pacientes.size(); i++) {
+            if (pacientes.get(i) != null && pacientes.get(i).getNome() != null) {
+                if (pacientes.get(i).getCPF().equals(CPF)) {
                     idExcluir = i;
                 }
             }
@@ -360,13 +362,13 @@ public class Sistema {
         for (int i = 0; i < anamneses.length; i++) {
             if (anamneses[i].getMotivo() != null) {
 
-                if (anamneses[i].getPaciente().getCPF().equals(pacientes[idExcluir].getCPF())) {
+                if (anamneses[i].getPaciente().getCPF().equals(pacientes.get(idExcluir).getCPF())) {
                     System.out.println("Não é possível excluir este paciente, pois o mesmo tem anamneses");
                     return false;
                 }
             }
         }
-        pacientes[idExcluir] = null;
+        pacientes.add(idExcluir,null);
         System.out.println("Paciente excluído\n");
         return true;
     }
@@ -411,9 +413,9 @@ public class Sistema {
         int numero = sc.nextInt();
         System.out.println();
 
-        for (int i = 0; i < pacientes.length; i++) {
-            if (pacientes[i].getCPF() == null) {
-                pacientes[i].setPaciente(nome, nomeMae, CPF, datanasc, sexo, logradouro, cidade, uf, numero);
+        for (int i = 0; i < pacientes.size(); i++) {
+            if (pacientes.get(i).getCPF() == null) {
+                pacientes.get(i).setPaciente(nome, nomeMae, CPF, datanasc, sexo, logradouro, cidade, uf, numero);
                 System.out.println("Paciente cadastrado com sucesso\n");
                 break;
             }
@@ -426,15 +428,15 @@ public class Sistema {
         System.out.format("+---------------+---------------+---------------+---------------+---------------+-----------------------+---------------+%n");
         System.out.format("|CNS            |Nome           |CPF            | Data de Nasc  |Sexo           | Nome da mãe           |%n");
         System.out.format("+---------------+---------------+---------------+---------------+---------------+-----------------------+---------------+%n");
-        for (int i = 0; i < pacientes.length; i++) {
-            if (pacientes[i] != null && pacientes[i].getCPF() != null) {
+        for (int i = 0; i < pacientes.size(); i++) {
+            if (pacientes.get(i) != null && pacientes.get(i).getCPF() != null) {
 
-                String nome = pacientes[i].getNome();
-                String dtNasc = pacientes[i].getDtNasc();
-                String nomeMae = pacientes[i].getNomeMae();
-                String CPF = pacientes[i].getCPF();
-                Sexo sexo = pacientes[i].getSexo();
-                long CNS = pacientes[i].getCNS();
+                String nome = pacientes.get(i).getNome();
+                String dtNasc = pacientes.get(i).getDtNasc();
+                String nomeMae = pacientes.get(i).getNomeMae();
+                String CPF = pacientes.get(i).getCPF();
+                Sexo sexo = pacientes.get(i).getSexo();
+                long CNS = pacientes.get(i).getCNS();
 
                 if (nome != null) {
 
@@ -723,10 +725,10 @@ public class Sistema {
                 System.out.println();
             }
         }
-        for (int i = 0; i < pacientes.length; i++) {
-            if (pacientes[i] != null && pacientes[i].getNome() != null) {
-                if (pacientes[i].getCPF().equals(cpf)) {
-                    return pacientes[i];
+        for (int i = 0; i < pacientes.size(); i++) {
+            if (pacientes.get(i) != null && pacientes.get(i).getNome() != null) {
+                if (pacientes.get(i).getCPF().equals(cpf)) {
+                    return pacientes.get(i);
                 }
             }
         }

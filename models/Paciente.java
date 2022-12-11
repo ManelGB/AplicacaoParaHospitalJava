@@ -40,6 +40,7 @@ public class Paciente {
         }
 
         endereco.setEndereco(logradouro, cidade, uf, numero);
+
     }
 
     public void setAtualizaPaciente(String nome, String nomeMae, String dtnasc, char Sexo, String logradouro,

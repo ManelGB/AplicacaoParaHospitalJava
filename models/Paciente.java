@@ -10,6 +10,7 @@ public class Paciente {
     private String nome, nomeMae, CPF;
     private Date dtnasc;
     private Sexo sexo;
+    private PacienteComDef.tipo tipo;
 
     Endereco endereco = new Endereco();
 
@@ -40,7 +41,6 @@ public class Paciente {
         }
 
         endereco.setEndereco(logradouro, cidade, uf, numero);
-
     }
 
     public void setAtualizaPaciente(String nome, String nomeMae, String dtnasc, char Sexo, String logradouro,

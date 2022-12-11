@@ -14,51 +14,49 @@ public class Sistema {
 
     Validacao validacao = new Validacao();
 
-    List <Paciente> pacientes = new ArrayList<>();
-
+    List<Paciente> pacientes = new ArrayList<>();
+    Paciente pacientesA[] = new Paciente[30];
     Anamnese anamneses[] = new Anamnese[30];
     Usuario usuarios[] = new Usuario[30];
 
-
     /*---------------------------------------------------- Sistema ----------------------------------------------------------*/
 
-   public void menutotal(){
+    public void menutotal() {
 
-    
-    System.out.println("Por favor indentifique-se");
-    System.out.println("Insira o seu login:");
-    String login = sc.next();
-    login += sc.nextLine();
-    System.out.println();
-    System.out.println("Agora por favor, insira a sua senha:");
-    String senha = sc.nextLine();
-    System.out.println("");
+        System.out.println("Por favor indentifique-se");
+        System.out.println("Insira o seu login:");
+        String login = sc.next();
+        login += sc.nextLine();
+        System.out.println();
+        System.out.println("Agora por favor, insira a sua senha:");
+        String senha = sc.nextLine();
+        System.out.println("");
 
-    if (autenticar(login, senha)) {
-        if (tipoUsuario(login, senha) == Tipo.ATENDENTE) {
-            boasVindasAtendente(login, senha);
+        if (autenticar(login, senha)) {
+            if (tipoUsuario(login, senha) == Tipo.ATENDENTE) {
+                boasVindasAtendente(login, senha);
+            } else {
+                boasVindasMedico(login, senha);
+            }
         } else {
-            boasVindasMedico(login, senha);
+            while (!autenticar(login, senha)) {
+                System.out.println("\nDados incorretos, por favor  indentifique-se novamente");
+                System.out.println("Insira o seu login:");
+                login = sc.nextLine();
+                System.out.println("Agora por favor, insira a sua senha:");
+                senha = sc.nextLine();
+                System.out.println("");
+            }
+            if (tipoUsuario(login, senha) == Tipo.ATENDENTE) {
+                boasVindasAtendente(login, senha);
+            } else {
+                boasVindasMedico(login, senha);
+            }
         }
-    } else {
-        while (!autenticar(login, senha)) {
-            System.out.println("\nDados incorretos, por favor  indentifique-se novamente");
-            System.out.println("Insira o seu login:");
-            login = sc.nextLine();
-            System.out.println("Agora por favor, insira a sua senha:");
-            senha = sc.nextLine();
-            System.out.println("");
-        }
-        if (tipoUsuario(login, senha) == Tipo.ATENDENTE) {
-            boasVindasAtendente(login, senha);
-        } else {
-            boasVindasMedico(login, senha);
-        }
+
+        System.out.println();
     }
 
-    System.out.println();
-   }
-   
     public boolean autenticar(String login, String senha) {
         return validacao.validaUsuario(login, senha, usuarios);
     }
@@ -75,16 +73,20 @@ public class Sistema {
     public void init() {
 
         for (int i = 0; i < 30; i++) {
+            pacientesA[i] = new Paciente();
             usuarios[i] = new Usuario();
             anamneses[i] = new Anamnese();
         }
 
-        pacientes.add(0,).setPaciente("Emanuel Gon", "Josefina da Silva", "52264982098", "20/02/2004", 'm',
+        pacientesA[0].setPaciente("Emanuel Gon", "Josefina da Silva", "52264982098", "20/02/2004", 'm',
                 "Rua dos Bobo", "Ipatinga", "MG", 123);
-        pacientes.get(1).setPaciente("TATÁ Bacanudo", "Elis Condoisélle", "12345678912", "01/02/2004", 'o',
+        pacientesA[1].setPaciente("TATÁ Bacanudo", "Elis Condoisélle", "12345678912", "01/02/2004", 'o',
                 "Avenida Brasil", "Timóteo", "MG", 159);
-        pacientes.get(2).setPaciente("Lidiane Morais", "Rosalina Condoisélle", "98745632198", "01/02/1960", 'f',
+        pacientesA[2].setPaciente("Lidiane Morais", "Rosalina Condoisélle", "98745632198", "01/02/1960", 'f',
                 "Avenida Macapá", "Santos", "SP", 147);
+        pacientes.add(0, pacientesA[0]);
+        pacientes.add(1, pacientesA[1]);
+        pacientes.add(2, pacientesA[2]);
 
         usuarios[0].setUsuario("Emanuel", "Emanuel", "123456789", 'a');
         usuarios[1].setUsuario("Tatá", "Thalles", "987654321", 'm');
@@ -108,7 +110,7 @@ public class Sistema {
         }
         return null;
     }
-   
+
     /*----------------------------------------------------------------------------------------------------------------------*/
 
     /*---------------------------------------------------- Atendente ----------------------------------------------------------*/
@@ -159,7 +161,7 @@ public class Sistema {
         System.out.println();
         return op;
     }
-    
+
     public void menuPrincipalAtendente() {
         int op = mostraMenuAtendente();
         while (op < 1 || op > 6) {
@@ -239,7 +241,7 @@ public class Sistema {
                             break;
                     }
                     break;
-                    case 5:
+                case 5:
                     menutotal();
                     break;
             }
@@ -368,7 +370,7 @@ public class Sistema {
                 }
             }
         }
-        pacientes.add(idExcluir,null);
+        pacientes.add(idExcluir, null);
         System.out.println("Paciente excluído\n");
         return true;
     }
@@ -425,9 +427,12 @@ public class Sistema {
     public void listarPacientes() {
         String leftAlignFormat = "|%-15s|%-15s|%-15s|%-15s|%-15s|%-15s|%n";
 
-        System.out.format("+---------------+---------------+---------------+---------------+---------------+-----------------------+---------------+%n");
-        System.out.format("|CNS            |Nome           |CPF            | Data de Nasc  |Sexo           | Nome da mãe           |%n");
-        System.out.format("+---------------+---------------+---------------+---------------+---------------+-----------------------+---------------+%n");
+        System.out.format(
+                "+---------------+---------------+---------------+---------------+---------------+-----------------------+---------------+%n");
+        System.out.format(
+                "|CNS            |Nome           |CPF            | Data de Nasc  |Sexo           | Nome da mãe           |%n");
+        System.out.format(
+                "+---------------+---------------+---------------+---------------+---------------+-----------------------+---------------+%n");
         for (int i = 0; i < pacientes.size(); i++) {
             if (pacientes.get(i) != null && pacientes.get(i).getCPF() != null) {
 
@@ -440,15 +445,12 @@ public class Sistema {
 
                 if (nome != null) {
 
-                    
-
-
-                System.out.printf(leftAlignFormat, CNS,nome,CPF,dtNasc,sexo,nomeMae);
-                System.out.format("+---------------+---------------+---------------+---------------+---------------+-----------------------+---------------+%n");
+                    System.out.printf(leftAlignFormat, CNS, nome, CPF, dtNasc, sexo, nomeMae);
+                    System.out.format(
+                            "+---------------+---------------+---------------+---------------+---------------+-----------------------+---------------+%n");
 
                 }
 
-                
             }
         }
     }
@@ -616,8 +618,8 @@ public class Sistema {
                     excluirAnamnese(escolhaID);
                     break;
                 case 5:
-                menutotal();
-                break;
+                    menutotal();
+                    break;
             }
             op = mostraMenuMedico();
             while (op < 1 || op > 6) {
@@ -630,7 +632,7 @@ public class Sistema {
     }
 
     /*---------------------------------------------------- Anamnese ----------------------------------------------------------*/
-    
+
     public void atualizarAnamnse() {
         System.out.println("Insira o ID da anamnese que será modificada:");
         int id = sc.nextInt();

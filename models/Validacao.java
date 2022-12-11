@@ -1,3 +1,4 @@
+package models;
 public class Validacao {
 
     public boolean validaCPF(String CPF, Paciente[] paciente) {

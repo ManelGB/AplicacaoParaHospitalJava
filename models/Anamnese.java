@@ -1,4 +1,7 @@
+package models;
+
 public class Anamnese {
+
 
     private static long idClasse = 0;
     private long id;

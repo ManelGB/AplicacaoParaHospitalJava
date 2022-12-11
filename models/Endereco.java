@@ -1,3 +1,4 @@
+package models;
 public class Endereco {
     private String logradouro, cidade, uf;
     private int numero;

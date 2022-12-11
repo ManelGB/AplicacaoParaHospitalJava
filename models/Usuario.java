@@ -1,3 +1,4 @@
+package models;
 
 public class Usuario {
 private static long idClasse = 0;

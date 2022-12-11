@@ -318,7 +318,7 @@ public class Sistema {
                 inserirDadosPaciente(CPF);
 
             } else {
-                while (!validacao.validaCPF(CPF, pacientes)) {
+                while (!validacao.validaCPF(CPF)) {
                     System.out.println("\nErro com o CPF inserido, por favor tente novamente!");
                     CPF = receberCPF();
                 }

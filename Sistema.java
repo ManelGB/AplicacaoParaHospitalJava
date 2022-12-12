@@ -417,7 +417,6 @@ public class Sistema {
 
         for (int i = 0; i < pacientes.size(); i++) {
             System.out.println(pacientes.get(i).getCPF());
-            // if (pacientes.get(i).getCPF() == null) {
             Paciente newP = new Paciente();
             newP.setPaciente(nome, nomeMae, CPF, datanasc, sexo, logradouro, cidade, uf, numero);
 
@@ -425,9 +424,7 @@ public class Sistema {
 
             System.out.println("Paciente cadastrado com sucesso\n");
             break;
-            // }
         }
-        // System.out.println("Erro!!");
     }
 
     public void listarPacientes() {

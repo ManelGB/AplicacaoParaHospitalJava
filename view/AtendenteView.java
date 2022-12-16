@@ -1,6 +1,6 @@
 package view;
 
-public class atendenteView {
+public class AtendenteView {
 
     public void boasVindasAtendente(String login, String senha) {
         System.out.println("Olá Atendente " + getNome(login, senha));

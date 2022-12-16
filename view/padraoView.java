@@ -8,7 +8,8 @@ public class padraoView {
     static Scanner sc = new Scanner(System.in);
     static Sistema sistema = new Sistema();
     static atendenteView atendenteview = new atendenteView();
-
+    static medicoView medicoview = new medicoView();
+    
     public static void menutotal() {
 
         System.out.println("Por favor indentifique-se");
@@ -24,7 +25,7 @@ public class padraoView {
             if (sistema.tipoUsuario(login, senha) == models.Tipo.ATENDENTE) {
                 atendenteView.boasVindasAtendente(login, senha);
             } else {
-                sistema.boasVindasMedico(login, senha);
+                medicoview.boasVindasMedico(login, senha);
             }
         } else {
             while (!sistema.autenticar(login, senha)) {
@@ -36,9 +37,9 @@ public class padraoView {
                 System.out.println("");
             }
             if (sistema.tipoUsuario(login, senha) == models.Tipo.ATENDENTE) {
-                sistema.boasVindasAtendente(login, senha);
+                atendenteview.boasVindasAtendente(login, senha);
             } else {
-                sistema.boasVindasMedico(login, senha);
+                medicoview.boasVindasMedico(login, senha);
             }
         }
 

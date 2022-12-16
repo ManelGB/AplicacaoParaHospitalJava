@@ -4,6 +4,9 @@
 import java.util.Scanner;
 
 import control.Sistema;
+import view.atendenteView;
+import view.medicoView;
+import view.padraoView;
 
 public class Main {
     static Scanner sc = new Scanner(System.in);
@@ -16,7 +19,7 @@ public class Main {
 
         sistema.init();
 
-        sistema.menutotal();
+        view.padraoView.menutotal();
     }
 
     

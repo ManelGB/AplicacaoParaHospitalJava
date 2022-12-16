@@ -23,10 +23,10 @@ public class padraoView {
             if (sistema.tipoUsuario(login, senha) == models.Tipo.ATENDENTE) {
                 sistema.boasVindasAtendente(login, senha);
             } else {
-                boasVindasMedico(login, senha);
+                sistema.boasVindasMedico(login, senha);
             }
         } else {
-            while (!autenticar(login, senha)) {
+            while (!sistema.autenticar(login, senha)) {
                 System.out.println("\nDados incorretos, por favor  indentifique-se novamente");
                 System.out.println("Insira o seu login:");
                 login = sc.nextLine();
@@ -34,17 +34,17 @@ public class padraoView {
                 senha = sc.nextLine();
                 System.out.println("");
             }
-            if (tipoUsuario(login, senha) == Tipo.ATENDENTE) {
-                boasVindasAtendente(login, senha);
+            if (sistema.tipoUsuario(login, senha) == models.Tipo.ATENDENTE) {
+                sistema.boasVindasAtendente(login, senha);
             } else {
-                boasVindasMedico(login, senha);
+                sistema.boasVindasMedico(login, senha);
             }
         }
 
         System.out.println();
     }
 
-    public void padraoViewInit () {
+    public void padraoViewInit() {
         sistema.init();
     }
 

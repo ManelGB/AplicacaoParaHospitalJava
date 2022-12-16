@@ -3,6 +3,8 @@
 
 import java.util.Scanner;
 
+import control.Sistema;
+
 public class Main {
     static Scanner sc = new Scanner(System.in);
 

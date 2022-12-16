@@ -1,9 +1,13 @@
 package view;
+import java.util.Scanner;
+import control.Sistema;
 
 public class AtendenteView {
+    static Sistema sistema = new Sistema();
+    static Scanner sc = new Scanner(System.in);
 
     public void boasVindasAtendente(String login, String senha) {
-        System.out.println("Olá Atendente " + getNome(login, senha));
+        System.out.println("Olá Atendente " + sistema.getNome(login, senha));
         menuPrincipalAtendente();
     }
 
@@ -66,11 +70,11 @@ public class AtendenteView {
                     }
                     switch (opç) {
                         case 1:
-                            criarPaciente();
+                            sistema.criarPaciente();
                             break;
 
                         case 2:
-                            criarUsuario();
+                            sistema.criarUsuario();
                             break;
                     }
                     break;
@@ -83,11 +87,11 @@ public class AtendenteView {
                     }
                     switch (opç) {
                         case 1:
-                            listarPacientes();
+                            sistema.listarPacientes();
                             break;
 
                         case 2:
-                            listarUsuarios();
+                            sistema.listarUsuarios();
                             break;
                     }
                     break;
@@ -100,11 +104,11 @@ public class AtendenteView {
                     }
                     switch (opç) {
                         case 1:
-                            atualizarPaciente();
+                            sistema.atualizarPaciente();
                             break;
 
                         case 2:
-                            atualizarUsuario();
+                            sistema.atualizarUsuario();
                             break;
                     }
                     break;
@@ -120,11 +124,11 @@ public class AtendenteView {
                             String cpf;
                             System.out.println("Digite o CPF do paciente a ser excluído : ");
                             cpf = sc.next();
-                            excluirPaciente(cpf);
+                            sistema.excluirPaciente(cpf);
                             break;
 
                         case 2:
-                            excluirUsuario();
+                            sistema.excluirUsuario();
                             break;
                     }
                     break;

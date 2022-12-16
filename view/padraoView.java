@@ -7,6 +7,7 @@ public class padraoView {
 
     static Scanner sc = new Scanner(System.in);
     static Sistema sistema = new Sistema();
+    static atendenteView atendenteview = new atendenteView();
 
     public static void menutotal() {
 
@@ -21,7 +22,7 @@ public class padraoView {
 
         if (sistema.autenticar(login, senha)) {
             if (sistema.tipoUsuario(login, senha) == models.Tipo.ATENDENTE) {
-                sistema.boasVindasAtendente(login, senha);
+                atendenteView.boasVindasAtendente(login, senha);
             } else {
                 sistema.boasVindasMedico(login, senha);
             }
@@ -44,7 +45,7 @@ public class padraoView {
         System.out.println();
     }
 
-    public void padraoViewInit() {
+    public static void padraoViewInit() {
         sistema.init();
     }
 

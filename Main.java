@@ -2,10 +2,6 @@
 //Emanuel Gonçalves e Thalles Augusto
 
 import java.util.Scanner;
-
-import control.Sistema;
-import view.atendenteView;
-import view.medicoView;
 import view.padraoView;
 
 public class Main {
@@ -15,7 +11,7 @@ public class Main {
 
         System.out.println();
 
-        padraoView.init();
+        padraoView.padraoViewInit();
 
         view.padraoView.menutotal();
     }

@@ -26,7 +26,7 @@ public class padraoView {
                 sistema.boasVindasMedico(login, senha);
             }
         } else {
-            while (!autenticar(login, senha)) {
+            while (!sistema.autenticar(login, senha)) {
                 System.out.println("\nDados incorretos, por favor  indentifique-se novamente");
                 System.out.println("Insira o seu login:");
                 login = sc.nextLine();

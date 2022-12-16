@@ -1,7 +1,7 @@
 package view;
 
-public class medicoView {
-    
+public class MedicoView {
+
     public void boasVindasMedico(String login, String senha) {
         System.out.println("Olá Médico " + getNome(login, senha));
         menuPrincipalMedico();
@@ -56,6 +56,5 @@ public class medicoView {
         System.out.println("Até mais!");
         System.exit(0);
     }
-
 
 }

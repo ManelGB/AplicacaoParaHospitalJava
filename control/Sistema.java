@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import view.padraoView;
 import models.Anamnese;
 import models.Paciente;
 import models.Sexo;
@@ -210,7 +211,7 @@ public class Sistema {
                     }
                     break;
                 case 5:
-                    menutotal();
+                    padraoView.menutotal();
                     break;
             }
             op = mostraMenuAtendente();
@@ -589,7 +590,7 @@ public class Sistema {
                     excluirAnamnese(escolhaID);
                     break;
                 case 5:
-                    menutotal();
+                    padraoView.menutotal();
                     break;
             }
             op = mostraMenuMedico();

@@ -15,9 +15,7 @@ public class Main {
 
         System.out.println();
 
-        Sistema sistema = new Sistema();
-
-        sistema.init();
+        padraoView.init();
 
         view.padraoView.menutotal();
     }

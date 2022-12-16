@@ -1,10 +1,12 @@
 package view;
 
 import java.util.Scanner;
+import control.Sistema;
 
 public class padraoView {
 
     static Scanner sc = new Scanner(System.in);
+    Sistema sistema = new Sistema();
 
     public static void menutotal() {
 
@@ -17,7 +19,7 @@ public class padraoView {
         String senha = sc.nextLine();
         System.out.println("");
 
-        if (autenticar(login, senha)) {
+        if (sistema.autenticar(login, senha)) {
             if (tipoUsuario(login, senha) == Tipo.ATENDENTE) {
                 boasVindasAtendente(login, senha);
             } else {
@@ -41,4 +43,9 @@ public class padraoView {
 
         System.out.println();
     }
+
+    public void padraoViewInit () {
+        sistema.init();
+    }
+
 }

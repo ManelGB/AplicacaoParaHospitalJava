@@ -6,7 +6,7 @@ import control.Sistema;
 public class padraoView {
 
     static Scanner sc = new Scanner(System.in);
-    Sistema sistema = new Sistema();
+    static Sistema sistema = new Sistema();
 
     public static void menutotal() {
 
@@ -20,10 +20,10 @@ public class padraoView {
         System.out.println("");
 
         if (sistema.autenticar(login, senha)) {
-            if (tipoUsuario(login, senha) == Tipo.ATENDENTE) {
-                boasVindasAtendente(login, senha);
+            if (sistema.tipoUsuario(login, senha) == models.Tipo.ATENDENTE) {
+                sistema.boasVindasAtendente(login, senha);
             } else {
-                boasVindasMedico(login, senha);
+                sistema.boasVindasMedico(login, senha);
             }
         } else {
             while (!autenticar(login, senha)) {
@@ -34,17 +34,17 @@ public class padraoView {
                 senha = sc.nextLine();
                 System.out.println("");
             }
-            if (tipoUsuario(login, senha) == Tipo.ATENDENTE) {
-                boasVindasAtendente(login, senha);
+            if (sistema.tipoUsuario(login, senha) == models.Tipo.ATENDENTE) {
+                sistema.boasVindasAtendente(login, senha);
             } else {
-                boasVindasMedico(login, senha);
+                sistema.boasVindasMedico(login, senha);
             }
         }
 
         System.out.println();
     }
 
-    public void padraoViewInit () {
+    public void padraoViewInit() {
         sistema.init();
     }
 

@@ -57,7 +57,7 @@ public class Sistema {
 
         usuariosA[0].setUsuario("Emanuel", "Emanuel", "123456789", 'a');
         usuariosA[1].setUsuario("Tatá", "Thalles", "987654321", 'm');
-        usuariosA[2].setUsuario("Lidiane Morais", "Rosalina Condoisélle", "123qwe", 'a');
+        usuariosA[2].setUsuario("Lidiane Morais", "Rosalina", "123qwe", 'a');
         usuarios.add(usuariosA[0]);
         usuarios.add(usuariosA[1]);
         usuarios.add(usuariosA[2]);
@@ -387,25 +387,7 @@ public class Sistema {
     }
 
     public void listarUsuarios(List<Usuario> usuarios) {
-        for (int i = 0; i < usuarios.size(); i++) {
-            if (usuarios.get(i) != null) {
-
-                long Id = usuarios.get(i).getId();
-                String nome = usuarios.get(i).getNome();
-                String nomeLogin = usuarios.get(i).getNomeLogin();
-                Tipo tipo = usuarios.get(i).getTipo();
-
-                if (nome != null) {
-
-                    System.out.println(
-                            "--------------------------------------------------------------------------------\n"
-                                    + "ID : " + Id + "\n" + "nome : " + nome +
-                                    "\n" + "Nome de login : " + nomeLogin + "\n" +
-                                    "Tipo : " + tipo +
-                                    "\n");
-                }
-            }
-        }
+       
     }
 
     /*----------------------------------------------------------------------------------------------------------------------*/
@@ -519,20 +501,31 @@ public class Sistema {
     }
 
     public void listarAnamneses(List<Anamnese> anamneses) {
+         String leftAlignFormat = "|%-15s|%-15s|%-15s|%-15s|%-15s|%n";
+
+        System.out.format(
+                "+---------------+---------------+---------------+---------------+---------------+%n");
+        System.out.format(
+                "|ID             |Paciente Nome  |Motivo         | Historico     | Queixa        |%n");
+        System.out.format(
+                "+---------------+---------------+---------------+---------------+---------------+%n");
         for (int i = 0; i < anamneses.size(); i++) {
-            if (anamneses.get(i) != null && anamneses.get(i).getMotivo() != null) {
+            if (anamneses.get(i) != null) {
+
                 String motivo = anamneses.get(i).getMotivo();
                 String historico = anamneses.get(i).getHistorico();
                 String queixa = anamneses.get(i).getQueixa();
                 String pacienteNome = anamneses.get(i).getPaciente().getNome();
                 long id = anamneses.get(i).getId();
+                if (pacienteNome != null) {
 
-                System.out.println("--------------------------------------------------------------------------------\n"
-                        + "Id : " + id + "\n" + "Nome do paciente : " + pacienteNome + "\n" + "Queixa : " + queixa
-                        + "\n"
-                        + "Motivo : " + motivo + "\n" + "Histórico : " + historico + "\n");
+                    System.out.printf(leftAlignFormat, id, pacienteNome, motivo,historico,queixa);
+                    System.out.format(
+                            "+---------------+---------------+---------------+---------------+---------------+%n");
+
+                }
+
             }
-
         }
         System.out.println();
     }

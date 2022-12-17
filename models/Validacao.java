@@ -2,7 +2,7 @@ package models;
 
 import java.util.List;
 
-public class Validacao {
+public class Validacao implements Autenticavel {
 
     public boolean validaCPF(String CPF, List<Paciente> paciente) {
         if ((CPF != null) && CPF.length() == 11) {

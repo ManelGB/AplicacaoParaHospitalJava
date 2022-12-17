@@ -221,7 +221,7 @@ public class Sistema {
         nomeMae += sc.nextLine();
         System.out.println();
 
-        System.out.println("Insira a data de nascimento do cliente,utilizando do modelo" +
+        System.out.println("Insira a data de nascimento do cliente, utilizando do modelo" +
                 " dd/mm/aaaa ( é necessário colocar a barra )");
         String datanasc = sc.next();
         System.out.println();
@@ -290,6 +290,7 @@ public class Sistema {
 
             }
         }
+        System.out.println();
     }
 
     public String receberCPF() {

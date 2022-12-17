@@ -73,7 +73,6 @@ public class Sistema {
         anamneses.add(anamnesesA[1]);
         anamneses.add(anamnesesA[2]);
 
-        System.out.println(pacientes.size());
     }
 
     public Tipo tipoUsuario(String login, String senha, List<Usuario> usuarios) {

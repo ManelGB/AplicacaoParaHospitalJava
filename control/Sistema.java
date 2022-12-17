@@ -485,7 +485,7 @@ public class Sistema {
         boolean validacao = false;
         for (int i = 0; i < anamneses.size(); i++) {
             if (anamneses.get(i).getId() == id) {
-                anamneses.add(i, null);
+                anamneses.remove(i);
                 validacao = true;
             }
         }

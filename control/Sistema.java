@@ -73,7 +73,6 @@ public class Sistema {
         anamneses.add(anamnesesA[1]);
         anamneses.add(anamnesesA[2]);
 
-        System.out.println(pacientes.size());
     }
 
     public Tipo tipoUsuario(String login, String senha, List<Usuario> usuarios) {
@@ -351,11 +350,11 @@ public class Sistema {
         char tipo = sc.next().toLowerCase().charAt(0);
 
         for (int i = 0; i < usuarios.size(); i++) {
-            if (usuarios.get(i).getSenha() == null) {
-                usuarios.get(i).setUsuario(nome, nomeLogin, senha, tipo);
-                System.out.println("Usuário cadastrado com sucesso!");
-                break;
-            }
+            // if (usuarios.get(i).getSenha() == null) {
+            usuarios.get(i).setUsuario(nome, nomeLogin, senha, tipo);
+            System.out.println("Usuário cadastrado com sucesso!");
+            break;
+            // }
         }
 
     }

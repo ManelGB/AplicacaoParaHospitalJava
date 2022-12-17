@@ -1,14 +1,20 @@
 package view;
+
+import java.util.List;
 import java.util.Scanner;
 import control.Sistema;
+import models.Anamnese;
+import models.Paciente;
+import models.Usuario;
 
 public class AtendenteView {
     static Sistema sistema = new Sistema();
     static Scanner sc = new Scanner(System.in);
 
-    public void boasVindasAtendente(String login, String senha) {
-        System.out.println("Olá Atendente " + sistema.getNome(login, senha));
-        menuPrincipalAtendente();
+    public void boasVindasAtendente(String login, String senha, List<Paciente> pacientes, List<Anamnese> anamneses,
+            List<Usuario> usuarios) {
+        System.out.println("Olá Atendente " + sistema.getNome(login, senha, usuarios));
+        menuPrincipalAtendente(pacientes, anamneses, usuarios);
     }
 
     public int mostraMenuAtendente() {
@@ -53,7 +59,7 @@ public class AtendenteView {
         return op;
     }
 
-    public void menuPrincipalAtendente() {
+    public void menuPrincipalAtendente(List<Paciente> pacientes, List<Anamnese> anamneses, List<Usuario> usuarios) {
         int op = mostraMenuAtendente();
         while (op < 1 || op > 6) {
             System.out.println("Opção impossível");
@@ -70,11 +76,11 @@ public class AtendenteView {
                     }
                     switch (opç) {
                         case 1:
-                            sistema.criarPaciente();
+                            sistema.criarPaciente(pacientes);
                             break;
 
                         case 2:
-                            sistema.criarUsuario();
+                            sistema.criarUsuario(usuarios);
                             break;
                     }
                     break;
@@ -87,11 +93,11 @@ public class AtendenteView {
                     }
                     switch (opç) {
                         case 1:
-                            sistema.listarPacientes();
+                            sistema.listarPacientes(pacientes);
                             break;
 
                         case 2:
-                            sistema.listarUsuarios();
+                            sistema.listarUsuarios(usuarios);
                             break;
                     }
                     break;
@@ -104,11 +110,11 @@ public class AtendenteView {
                     }
                     switch (opç) {
                         case 1:
-                            sistema.atualizarPaciente();
+                            sistema.atualizarPaciente(pacientes);
                             break;
 
                         case 2:
-                            sistema.atualizarUsuario();
+                            sistema.atualizarUsuario(usuarios);
                             break;
                     }
                     break;
@@ -124,16 +130,16 @@ public class AtendenteView {
                             String cpf;
                             System.out.println("Digite o CPF do paciente a ser excluído : ");
                             cpf = sc.next();
-                            sistema.excluirPaciente(cpf);
+                            sistema.excluirPaciente(cpf, pacientes, anamneses);
                             break;
 
                         case 2:
-                            sistema.excluirUsuario();
+                            sistema.excluirUsuario(usuarios);
                             break;
                     }
                     break;
                 case 5:
-                    padraoView.menutotal();
+                    padraoView.menutotal(pacientes, anamneses, usuarios);
                     break;
             }
             op = mostraMenuAtendente();

@@ -18,20 +18,17 @@ public class Sistema {
 
     Validacao validacao = new Validacao();
 
-    List<Paciente> pacientes = new ArrayList<>();
     Paciente pacientesA[] = new Paciente[30];
-    List<Anamnese> anamneses = new ArrayList<>();
     Anamnese anamnesesA[] = new Anamnese[30];
-    List<Usuario> usuarios = new ArrayList<>();
     Usuario usuariosA[] = new Usuario[30];
 
     /*---------------------------------------------------- Sistema ----------------------------------------------------------*/
 
-    public boolean autenticar(String login, String senha) {
+    public boolean autenticar(String login, String senha, List<Usuario> usuarios) {
         return validacao.validaUsuario(login, senha, usuarios);
     }
 
-    public String getNome(String login, String senha) {
+    public String getNome(String login, String senha, List<Usuario> usuarios) {
         for (int i = 0; i < usuarios.size(); i++) {
             if (login.equals(usuarios.get(i).getNomeLogin()) && senha.equals(usuarios.get(i).getSenha())) {
                 return usuarios.get(i).getNome();
@@ -40,7 +37,7 @@ public class Sistema {
         return null;
     }
 
-    public void init() {
+    public void init(List<Paciente> pacientes, List<Anamnese> anamneses, List<Usuario> usuarios) {
 
         for (int i = 0; i < 30; i++) {
             pacientesA[i] = new Paciente();
@@ -54,16 +51,16 @@ public class Sistema {
                 "Avenida Brasil", "Timóteo", "MG", 159);
         pacientesA[2].setPaciente("Lidiane Morais", "Rosalina Condoisélle", "98745632198", "01/02/1960", 'f',
                 "Avenida Macapá", "Santos", "SP", 147);
-        pacientes.add(0, pacientesA[0]);
-        pacientes.add(1, pacientesA[1]);
-        pacientes.add(2, pacientesA[2]);
+        pacientes.add(pacientesA[0]);
+        pacientes.add(pacientesA[1]);
+        pacientes.add(pacientesA[2]);
 
         usuariosA[0].setUsuario("Emanuel", "Emanuel", "123456789", 'a');
         usuariosA[1].setUsuario("Tatá", "Thalles", "987654321", 'm');
         usuariosA[2].setUsuario("Lidiane Morais", "Rosalina Condoisélle", "123qwe", 'a');
-        usuarios.add(0, usuariosA[0]);
-        usuarios.add(1, usuariosA[1]);
-        usuarios.add(2, usuariosA[2]);
+        usuarios.add(usuariosA[0]);
+        usuarios.add(usuariosA[1]);
+        usuarios.add(usuariosA[2]);
 
         anamnesesA[0].setAnamnese("Emanuel", "dor de carregar o peso de ser um tremendo feioso", "Dor de cabeça",
                 pacientes.get(0));
@@ -72,12 +69,14 @@ public class Sistema {
         anamnesesA[2].setAnamnese("Lidiane", "Programadora", "Dor lombar",
                 pacientes.get(2));
 
-        anamneses.add(0, anamnesesA[0]);
-        anamneses.add(1, anamnesesA[1]);
-        anamneses.add(2, anamnesesA[2]);
+        anamneses.add(anamnesesA[0]);
+        anamneses.add(anamnesesA[1]);
+        anamneses.add(anamnesesA[2]);
+
+        System.out.println(pacientes.size());
     }
 
-    public Tipo tipoUsuario(String login, String senha) {
+    public Tipo tipoUsuario(String login, String senha, List<Usuario> usuarios) {
 
         for (int i = 0; i < usuarios.size(); i++) {
             if (login.equals(usuarios.get(i).getNomeLogin()) && senha.equals(usuarios.get(i).getSenha())) {
@@ -92,7 +91,7 @@ public class Sistema {
 
     /*---------------------------------------------------- Paciente ----------------------------------------------------------*/
 
-    public void atualizarPaciente() {
+    public void atualizarPaciente(List<Paciente> pacientes) {
 
         System.out.println("Insira o CPF do usuário que você deseja mudar:");
         String CPF = sc.next();
@@ -145,19 +144,19 @@ public class Sistema {
         }
     }
 
-    public boolean criarPaciente() {
+    public boolean criarPaciente(List<Paciente> pacientes) {
 
         String CPF = receberCPF();
         if (validacao.validaCPF(CPF)) {
             if (validacao.validaCPF(CPF, pacientes)) {
-                inserirDadosPaciente(CPF);
+                inserirDadosPaciente(CPF, pacientes);
 
             } else {
                 while (!validacao.validaCPF(CPF)) {
                     System.out.println("\nErro com o CPF inserido, por favor tente novamente!");
                     CPF = receberCPF();
                 }
-                inserirDadosPaciente(CPF);
+                inserirDadosPaciente(CPF, pacientes);
             }
         } else {
             while (!validacao.validaCPF(CPF)) {
@@ -165,21 +164,21 @@ public class Sistema {
                 CPF = receberCPF();
             }
             if (validacao.validaCPF(CPF, pacientes)) {
-                inserirDadosPaciente(CPF);
+                inserirDadosPaciente(CPF, pacientes);
 
             } else {
                 while (!validacao.validaCPF(CPF, pacientes)) {
                     System.out.println("\nErro com o CPF inserido, por favor tente novamente!");
                     CPF = receberCPF();
                 }
-                inserirDadosPaciente(CPF);
+                inserirDadosPaciente(CPF, pacientes);
             }
         }
 
         return true;
     }
 
-    public boolean excluirPaciente(String CPF) {
+    public boolean excluirPaciente(String CPF, List<Paciente> pacientes, List<Anamnese> anamneses) {
         validacao.validaCPF(CPF);
         validacao.validaCPF(CPF, pacientes);
         int idExcluir = -1;
@@ -205,12 +204,12 @@ public class Sistema {
                 }
             }
         }
-        pacientes.add(idExcluir, null);
+        pacientes.remove(idExcluir);
         System.out.println("Paciente excluído\n");
         return true;
     }
 
-    public void inserirDadosPaciente(String CPF) {
+    public void inserirDadosPaciente(String CPF, List<Paciente> pacientes) {
 
         System.out.println("Insira o nome do paciente:");
         String nome = sc.next();
@@ -262,7 +261,7 @@ public class Sistema {
         }
     }
 
-    public void listarPacientes() {
+    public void listarPacientes(List<Paciente> pacientes) {
         String leftAlignFormat = "|%-15s|%-15s|%-15s|%-15s|%-15s|%-15s|%n";
 
         System.out.format(
@@ -304,7 +303,7 @@ public class Sistema {
 
     /*---------------------------------------------------- Usuário ----------------------------------------------------------*/
 
-    public void atualizarUsuario() {
+    public void atualizarUsuario(List<Usuario> usuarios) {
         System.out.println("Entre com o id do usuário que você deseja mudar");
         long id = sc.nextInt();
         System.out.println();
@@ -333,7 +332,7 @@ public class Sistema {
         }
     }
 
-    public void criarUsuario() {
+    public void criarUsuario(List<Usuario> usuarios) {
 
         System.out.println("Insira o nome do Usuário:");
         String nome = sc.next();
@@ -360,7 +359,7 @@ public class Sistema {
 
     }
 
-    public void excluirUsuario() {
+    public void excluirUsuario(List<Usuario> usuarios) {
         System.out.println("Digite o ID do usuario a ser excluído : ");
         int idUser = sc.nextInt();
         String senha;
@@ -387,7 +386,7 @@ public class Sistema {
         }
     }
 
-    public void listarUsuarios() {
+    public void listarUsuarios(List<Usuario> usuarios) {
         for (int i = 0; i < usuarios.size(); i++) {
             if (usuarios.get(i) != null) {
 
@@ -415,7 +414,7 @@ public class Sistema {
 
     /*---------------------------------------------------- Anamnese ----------------------------------------------------------*/
 
-    public void atualizarAnamnse() {
+    public void atualizarAnamnse(List<Anamnese> anamneses, List<Paciente> pacientes) {
         System.out.println("Insira o ID da anamnese que será modificada:");
         int id = sc.nextInt();
 
@@ -442,7 +441,7 @@ public class Sistema {
                     String CPF = sc.next();
                     System.out.println();
 
-                    Paciente pacienteAnamnese = encontrarPaciente(CPF);
+                    Paciente pacienteAnamnese = encontrarPaciente(CPF, pacientes);
 
                     anamneses.get(i).setAtualizarAnamnese(motivo, historico, queixa, pacienteAnamnese);
                 }
@@ -450,7 +449,7 @@ public class Sistema {
         }
     }
 
-    public boolean criarAnamnese() {
+    public boolean criarAnamnese(List<Anamnese> anamneses, List<Paciente> pacientes) {
         System.out.println("Insira o motivo da anamnese:");
         String motivo = sc.next();
         motivo += sc.nextLine();
@@ -470,7 +469,7 @@ public class Sistema {
         String CPF = sc.next();
         System.out.println();
 
-        Paciente pacienteAnamnese = encontrarPaciente(CPF);
+        Paciente pacienteAnamnese = encontrarPaciente(CPF, pacientes);
         for (int i = 0; i < anamneses.size(); i++) {
             if (anamneses.get(i).getQueixa() == null) {
                 anamneses.get(i).setAnamnese(motivo, historico, queixa, pacienteAnamnese);
@@ -482,7 +481,7 @@ public class Sistema {
         return true;
     }
 
-    public void excluirAnamnese(long id) {
+    public void excluirAnamnese(long id, List<Anamnese> anamneses) {
         boolean validacao = false;
         for (int i = 0; i < anamneses.size(); i++) {
             if (anamneses.get(i).getId() == id) {
@@ -498,7 +497,7 @@ public class Sistema {
         }
     }
 
-    public Paciente encontrarPaciente(String CPF) {
+    public Paciente encontrarPaciente(String CPF, List<Paciente> pacientes) {
         String cpf = CPF;
         if (!validacao.validaCPF(cpf, pacientes)) {
             while (!validacao.validaCPF(cpf, pacientes)) {
@@ -519,7 +518,7 @@ public class Sistema {
         return null;
     }
 
-    public void listarAnamneses() {
+    public void listarAnamneses(List<Anamnese> anamneses) {
         for (int i = 0; i < anamneses.size(); i++) {
             if (anamneses.get(i) != null && anamneses.get(i).getMotivo() != null) {
                 String motivo = anamneses.get(i).getMotivo();

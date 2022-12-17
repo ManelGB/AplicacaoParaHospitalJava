@@ -349,11 +349,11 @@ public class Sistema {
         char tipo = sc.next().toLowerCase().charAt(0);
 
         for (int i = 0; i < usuarios.size(); i++) {
-            if (usuarios.get(i).getSenha() == null) {
-                usuarios.get(i).setUsuario(nome, nomeLogin, senha, tipo);
-                System.out.println("Usuário cadastrado com sucesso!");
-                break;
-            }
+            // if (usuarios.get(i).getSenha() == null) {
+            usuarios.get(i).setUsuario(nome, nomeLogin, senha, tipo);
+            System.out.println("Usuário cadastrado com sucesso!");
+            break;
+            // }
         }
 
     }

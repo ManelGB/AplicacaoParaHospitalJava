@@ -30,10 +30,10 @@ public class Validacao {
         }
     }
 
-    public boolean validaUsuario(String login, String senha, Usuario[] usuario) {
+    public boolean validaUsuario(String login, String senha, List<Usuario> usuario) {
 
-        for (int i = 0; i < usuario.length; i++) {
-            if (login.equals(usuario[i].getNomeLogin()) && senha.equals(usuario[i].getSenha())) {
+        for (int i = 0; i < usuario.size(); i++) {
+            if (login.equals(usuario.get(i).getNomeLogin()) && senha.equals(usuario.get(i).getSenha())) {
                 return true;
             }
         }

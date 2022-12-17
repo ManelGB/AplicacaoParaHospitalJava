@@ -1,4 +1,5 @@
 package control;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,21 +20,21 @@ public class Sistema {
 
     List<Paciente> pacientes = new ArrayList<>();
     Paciente pacientesA[] = new Paciente[30];
-    Anamnese anamneses[] = new Anamnese[30];
-    Usuario usuarios[] = new Usuario[30];
+    List<Anamnese> anamneses = new ArrayList<>();
+    Anamnese anamnesesA[] = new Anamnese[30];
+    List<Usuario> usuarios = new ArrayList<>();
+    Usuario usuariosA[] = new Usuario[30];
 
     /*---------------------------------------------------- Sistema ----------------------------------------------------------*/
-
-   
 
     public boolean autenticar(String login, String senha) {
         return validacao.validaUsuario(login, senha, usuarios);
     }
 
     public String getNome(String login, String senha) {
-        for (int i = 0; i < usuarios.length; i++) {
-            if (login.equals(usuarios[i].getNomeLogin()) && senha.equals(usuarios[i].getSenha())) {
-                return usuarios[i].getNome();
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (login.equals(usuarios.get(i).getNomeLogin()) && senha.equals(usuarios.get(i).getSenha())) {
+                return usuarios.get(i).getNome();
             }
         }
         return null;
@@ -43,8 +44,8 @@ public class Sistema {
 
         for (int i = 0; i < 30; i++) {
             pacientesA[i] = new Paciente();
-            usuarios[i] = new Usuario();
-            anamneses[i] = new Anamnese();
+            usuariosA[i] = new Usuario();
+            anamnesesA[i] = new Anamnese();
         }
 
         pacientesA[0].setPaciente("Emanuel Gon", "Josefina da Silva", "52264982098", "20/02/2004", 'm',
@@ -57,23 +58,30 @@ public class Sistema {
         pacientes.add(1, pacientesA[1]);
         pacientes.add(2, pacientesA[2]);
 
-        usuarios[0].setUsuario("Emanuel", "Emanuel", "123456789", 'a');
-        usuarios[1].setUsuario("Tatá", "Thalles", "987654321", 'm');
-        usuarios[2].setUsuario("Lidiane Morais", "Rosalina Condoisélle", "123qwe", 'a');
+        usuariosA[0].setUsuario("Emanuel", "Emanuel", "123456789", 'a');
+        usuariosA[1].setUsuario("Tatá", "Thalles", "987654321", 'm');
+        usuariosA[2].setUsuario("Lidiane Morais", "Rosalina Condoisélle", "123qwe", 'a');
+        usuarios.add(0, usuariosA[0]);
+        usuarios.add(1, usuariosA[1]);
+        usuarios.add(2, usuariosA[2]);
 
-        anamneses[0].setAnamnese("Emanuel", "dor de carregar o peso de ser um tremendo feioso", "Dor de cabeça",
+        anamnesesA[0].setAnamnese("Emanuel", "dor de carregar o peso de ser um tremendo feioso", "Dor de cabeça",
                 pacientes.get(0));
-        anamneses[1].setAnamnese("TATÁ", "dor de carregar o peso de ser um tremendo gostoso", "Dor no olho",
+        anamnesesA[1].setAnamnese("TATÁ", "dor de carregar o peso de ser um tremendo gostoso", "Dor no olho",
                 pacientes.get(1));
-        anamneses[2].setAnamnese("Lidiane", "Programadora", "Dor lombar",
+        anamnesesA[2].setAnamnese("Lidiane", "Programadora", "Dor lombar",
                 pacientes.get(2));
+
+        anamneses.add(0, anamnesesA[0]);
+        anamneses.add(1, anamnesesA[1]);
+        anamneses.add(2, anamnesesA[2]);
     }
 
     public Tipo tipoUsuario(String login, String senha) {
 
-        for (int i = 0; i < usuarios.length; i++) {
-            if (login.equals(usuarios[i].getNomeLogin()) && senha.equals(usuarios[i].getSenha())) {
-                Tipo tipo = usuarios[i].getTipo();
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (login.equals(usuarios.get(i).getNomeLogin()) && senha.equals(usuarios.get(i).getSenha())) {
+                Tipo tipo = usuarios.get(i).getTipo();
                 return tipo;
             }
         }
@@ -188,10 +196,10 @@ public class Sistema {
             return false;
         }
 
-        for (int i = 0; i < anamneses.length; i++) {
-            if (anamneses[i].getMotivo() != null) {
+        for (int i = 0; i < anamneses.size(); i++) {
+            if (anamneses.get(i).getMotivo() != null) {
 
-                if (anamneses[i].getPaciente().getCPF().equals(pacientes.get(idExcluir).getCPF())) {
+                if (anamneses.get(i).getPaciente().getCPF().equals(pacientes.get(idExcluir).getCPF())) {
                     System.out.println("Não é possível excluir este paciente, pois o mesmo tem anamneses");
                     return false;
                 }
@@ -301,9 +309,9 @@ public class Sistema {
         long id = sc.nextInt();
         System.out.println();
 
-        for (int i = 0; i < usuarios.length; i++) {
-            if (usuarios[i] != null && usuarios[i].getNome() != null) {
-                if (usuarios[i].getId() == id) {
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (usuarios.get(i) != null && usuarios.get(i).getNome() != null) {
+                if (usuarios.get(i).getId() == id) {
                     System.out.println("Insira o nome do Usuário:");
                     String nome = sc.next();
                     nome += sc.nextLine();
@@ -319,7 +327,7 @@ public class Sistema {
                     System.out.println("Insira o tipo do Usuário ( a - Atendente , m - Médico ):");
                     char tipo = sc.next().toLowerCase().charAt(0);
 
-                    usuarios[i].setAtualizarUsuario(nome, nomeLogin, senha, tipo);
+                    usuarios.get(i).setAtualizarUsuario(nome, nomeLogin, senha, tipo);
                 }
             }
         }
@@ -342,9 +350,9 @@ public class Sistema {
         System.out.println("Insira o tipo do Usuário ( a - Atendente , m - Médico ):");
         char tipo = sc.next().toLowerCase().charAt(0);
 
-        for (int i = 0; i < usuarios.length; i++) {
-            if (usuarios[i].getSenha() == null) {
-                usuarios[i].setUsuario(nome, nomeLogin, senha, tipo);
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (usuarios.get(i).getSenha() == null) {
+                usuarios.get(i).setUsuario(nome, nomeLogin, senha, tipo);
                 System.out.println("Usuário cadastrado com sucesso!");
                 break;
             }
@@ -357,15 +365,16 @@ public class Sistema {
         int idUser = sc.nextInt();
         String senha;
         boolean validacao = false;
-        for (int i = 0; i < usuarios.length; i++) {
-            if (usuarios[i] != null && usuarios[i].getNome() != null) {
-                if (usuarios[i].getId() == idUser) {
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (usuarios.get(i) != null && usuarios.get(i).getNome() != null) {
+                if (usuarios.get(i).getId() == idUser) {
                     System.out.println("Usuario encontrado! Digite a senha do usuario a ser excluído : ");
                     senha = sc.next();
                     senha += sc.nextLine();
                     System.out.println();
-                    if (usuarios[i].getSenha().equals(senha)) {
-                        usuarios[i] = null;
+                    if (usuarios.get(i).getSenha().equals(senha)) {
+                        usuarios.add(i, null);
+                        ;
                         validacao = true;
                     }
                 }
@@ -379,13 +388,13 @@ public class Sistema {
     }
 
     public void listarUsuarios() {
-        for (int i = 0; i < usuarios.length; i++) {
-            if (usuarios[i] != null) {
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (usuarios.get(i) != null) {
 
-                long Id = usuarios[i].getId();
-                String nome = usuarios[i].getNome();
-                String nomeLogin = usuarios[i].getNomeLogin();
-                Tipo tipo = usuarios[i].getTipo();
+                long Id = usuarios.get(i).getId();
+                String nome = usuarios.get(i).getNome();
+                String nomeLogin = usuarios.get(i).getNomeLogin();
+                Tipo tipo = usuarios.get(i).getTipo();
 
                 if (nome != null) {
 
@@ -410,10 +419,10 @@ public class Sistema {
         System.out.println("Insira o ID da anamnese que será modificada:");
         int id = sc.nextInt();
 
-        for (int i = 0; i < anamneses.length; i++) {
-            if (anamneses[i] != null && anamneses[i].getMotivo() != null) {
+        for (int i = 0; i < anamneses.size(); i++) {
+            if (anamneses.get(i) != null && anamneses.get(i).getMotivo() != null) {
 
-                if (anamneses[i].getId() == id) {
+                if (anamneses.get(i).getId() == id) {
                     System.out.println("Insira o motivo da anamnese:");
                     String motivo = sc.next();
                     motivo += sc.nextLine();
@@ -435,7 +444,7 @@ public class Sistema {
 
                     Paciente pacienteAnamnese = encontrarPaciente(CPF);
 
-                    anamneses[i].setAtualizarAnamnese(motivo, historico, queixa, pacienteAnamnese);
+                    anamneses.get(i).setAtualizarAnamnese(motivo, historico, queixa, pacienteAnamnese);
                 }
             }
         }
@@ -462,9 +471,9 @@ public class Sistema {
         System.out.println();
 
         Paciente pacienteAnamnese = encontrarPaciente(CPF);
-        for (int i = 0; i < anamneses.length; i++) {
-            if (anamneses[i].getQueixa() == null) {
-                anamneses[i].setAnamnese(motivo, historico, queixa, pacienteAnamnese);
+        for (int i = 0; i < anamneses.size(); i++) {
+            if (anamneses.get(i).getQueixa() == null) {
+                anamneses.get(i).setAnamnese(motivo, historico, queixa, pacienteAnamnese);
                 System.out.println("Anamnese criada com sucesso!\n");
                 break;
 
@@ -475,9 +484,9 @@ public class Sistema {
 
     public void excluirAnamnese(long id) {
         boolean validacao = false;
-        for (int i = 0; i < anamneses.length; i++) {
-            if (anamneses[i].getId() == id) {
-                anamneses[i] = null;
+        for (int i = 0; i < anamneses.size(); i++) {
+            if (anamneses.get(i).getId() == id) {
+                anamneses.add(i, null);
                 validacao = true;
             }
         }
@@ -511,13 +520,13 @@ public class Sistema {
     }
 
     public void listarAnamneses() {
-        for (int i = 0; i < anamneses.length; i++) {
-            if (anamneses[i] != null && anamneses[i].getMotivo() != null) {
-                String motivo = anamneses[i].getMotivo();
-                String historico = anamneses[i].getHistorico();
-                String queixa = anamneses[i].getQueixa();
-                String pacienteNome = anamneses[i].getPaciente().getNome();
-                long id = anamneses[i].getId();
+        for (int i = 0; i < anamneses.size(); i++) {
+            if (anamneses.get(i) != null && anamneses.get(i).getMotivo() != null) {
+                String motivo = anamneses.get(i).getMotivo();
+                String historico = anamneses.get(i).getHistorico();
+                String queixa = anamneses.get(i).getQueixa();
+                String pacienteNome = anamneses.get(i).getPaciente().getNome();
+                long id = anamneses.get(i).getId();
 
                 System.out.println("--------------------------------------------------------------------------------\n"
                         + "Id : " + id + "\n" + "Nome do paciente : " + pacienteNome + "\n" + "Queixa : " + queixa
